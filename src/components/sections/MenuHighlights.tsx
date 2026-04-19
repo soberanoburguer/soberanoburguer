@@ -54,7 +54,7 @@ const SWEETS = [
 
 export default function MenuHighlights() {
   return (
-    <section id="menu" className="py-24 px-4 bg-brand-charcoal relative">
+    <section id="menu" className="py-14 md:py-24 px-4 bg-brand-charcoal relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           badge="Escolha Sua Realeza"
@@ -63,7 +63,7 @@ export default function MenuHighlights() {
         />
 
         <Tabs defaultValue="burgers" className="w-full">
-          <TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2 bg-brand-gray border border-white/5 p-1 mb-12 !h-auto">
+          <TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2 bg-brand-gray border border-white/5 p-1 mb-8 md:mb-12 !h-auto">
             <TabsTrigger value="burgers" className="!h-auto py-2.5 data-[active]:bg-soberano-gradient data-[active]:!text-white data-[active]:shadow-none transition-all font-bold text-white/50">
               Burgers
             </TabsTrigger>
@@ -72,23 +72,23 @@ export default function MenuHighlights() {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="burgers" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 outline-none">
+          <TabsContent value="burgers" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 outline-none">
             {BURGERS.map((burger, index) => (
               <ProductCard key={index} {...burger} />
             ))}
           </TabsContent>
 
-          <TabsContent value="sweets" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 outline-none">
+          <TabsContent value="sweets" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 outline-none">
             {SWEETS.map((sweet, index) => (
               <ProductCard key={index} {...sweet} />
             ))}
           </TabsContent>
         </Tabs>
 
-        <div className="mt-20 text-center">
-          <p className="text-foreground/40 text-sm mb-6">Quer ver o cardápio completo com todas as opções?</p>
+        <div className="mt-12 md:mt-20 text-center">
+          <p className="text-foreground/40 text-sm mb-4 md:mb-6">Quer ver o cardápio completo com todas as opções?</p>
           <a
-            href="https://wa.me/5583986256727"
+            href="https://app.cardapioweb.com/soberano_burguer"
             target="_blank"
             className="inline-flex items-center justify-center gap-2 text-brand-amber font-black uppercase tracking-widest hover:translate-x-2 transition-transform"
           >

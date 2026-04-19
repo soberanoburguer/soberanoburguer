@@ -40,68 +40,84 @@ const MILESTONES = [
   },
 ];
 
+const DESKTOP_CHAPTERS = [
+  {
+    chapter: "Cap. I",
+    yearLines: ["Antes", "2020"],
+    title: "A Lâmina",
+    desc: "Uma vida inteira entre facas e ganchos. O olho clínico, os blends, o vocabulário da carne — forjados antes de qualquer chapa acender.",
+    Icon: UtensilsCrossed,
+    active: false,
+  },
+  {
+    chapter: "Cap. II",
+    yearLines: ["Mai", "2020"],
+    title: "A Brasa",
+    desc: "Uma churrasqueira 'porquinho', a mesa da cozinha, a garagem. Sem capital, muita fé — e o nome soberano já prometendo o que viria.",
+    Icon: Rocket,
+    active: false,
+  },
+  {
+    chapter: "Cap. III",
+    yearLines: ["2020", "2022"],
+    title: "A Estrada",
+    desc: "A 'euquipe' de um homem só. Gustavo preparava, montava e subia na moto para entregar. Na porta do cliente, o mito nascia.",
+    Icon: Truck,
+    active: false,
+  },
+  {
+    chapter: "Cap. IV",
+    yearLines: ["2023", "2024"],
+    title: "O Reino",
+    desc: "O 'corre' individual vira engrenagem. Rede de pessoas, processos, padrão. A garagem ficou pequena — a ambição, não.",
+    Icon: Users,
+    active: false,
+  },
+  {
+    chapter: "Cap. V",
+    yearLines: ["2026"],
+    title: "O Legado",
+    desc: "Seis anos. Referência regional, padrão inabalável. O açougueiro virou soberano — e o reinado apenas começa.",
+    Icon: Crown,
+    active: true,
+  },
+] as const;
+
 export default function History() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Mobile refs
   const lineRef = useRef<HTMLDivElement>(null);
   const markerRefs = useRef<HTMLDivElement[]>([]);
 
+  // Desktop refs
+  const activeLineRef = useRef<HTMLDivElement>(null);
+  const bgLineRef = useRef<HTMLDivElement>(null);
+  const desktopColRefs = useRef<HTMLDivElement[]>([]);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 20%",
-            end: "bottom 80%",
-            scrub: true,
-          },
-        }
-      );
-
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 768px)", () => {
-        // Desktop: alternating left/right
-        markerRefs.current.forEach((marker, index) => {
-          if (!marker) return;
-
-          gsap.from(marker, {
-            scale: 0,
-            opacity: 0,
-            duration: 0.5,
-            scrollTrigger: {
-              trigger: marker,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          });
-
-          const card = marker.parentElement?.querySelector(".timeline-card");
-          if (card) {
-            gsap.from(card, {
-              x: index % 2 === 0 ? -50 : 50,
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-              },
-            });
-          }
-        });
-      });
-
+      // ── MOBILE: vertical timeline ──
       mm.add("(max-width: 767px)", () => {
-        // Mobile: all cards come from the left
+        gsap.fromTo(
+          lineRef.current,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 20%",
+              end: "bottom 80%",
+              scrub: true,
+            },
+          }
+        );
+
         markerRefs.current.forEach((marker) => {
           if (!marker) return;
-
           gsap.from(marker, {
             scale: 0,
             opacity: 0,
@@ -112,7 +128,6 @@ export default function History() {
               toggleActions: "play none none reverse",
             },
           });
-
           const card = marker.closest(".milestone-row")?.querySelector(".timeline-card");
           if (card) {
             gsap.from(card, {
@@ -129,6 +144,44 @@ export default function History() {
           }
         });
       });
+
+      // ── DESKTOP: horizontal rail (Option A) ──
+      mm.add("(min-width: 768px)", () => {
+        // Stagger each chapter column as section enters view
+        const cols = desktopColRefs.current.filter(Boolean);
+        if (cols.length) {
+          gsap.from(cols, {
+            y: 28,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.09,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 55%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+
+        // Pin section at its bottom — scroll only continues after bar reaches 5th card
+        gsap.fromTo(
+          activeLineRef.current,
+          { width: "0%" },
+          {
+            width: "100%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "bottom bottom",
+              end: "+=800",
+              pin: true,
+              anticipatePin: 1,
+              scrub: 1,
+            },
+          }
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -138,79 +191,175 @@ export default function History() {
     <section
       id="history"
       ref={sectionRef}
-      className="py-24 px-4 bg-brand-gray relative overflow-hidden"
+      className="bg-brand-gray relative overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-brand-amber uppercase tracking-widest text-sm font-bold mb-4">Nossa Origem</h2>
-          <h3 className="text-4xl md:text-5xl font-black mb-6">
-            De Açougueiro a <span className="text-soberano-gradient">Soberano</span>
-          </h3>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
-            Uma jornada de 6 anos marcada pela coragem, técnica e o domínio total da carne. Conheça os passos que nos trouxeram até aqui.
-          </p>
-        </div>
+      {/* ─────────────────────────────────────────────
+          MOBILE layout — untouched
+      ───────────────────────────────────────────── */}
+      <div className="md:hidden py-14 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10 md:mb-20">
+            <h2 className="text-brand-amber uppercase tracking-widest text-sm font-bold mb-3">Nossa Origem</h2>
+            <h3 className="text-4xl md:text-5xl font-black mb-4 md:mb-6">
+              De Açougueiro a <span className="text-soberano-gradient">Soberano</span>
+            </h3>
+            <p className="text-foreground/60 max-w-2xl mx-auto">
+              Uma jornada de 6 anos marcada pela coragem, técnica e o domínio total da carne. Conheça os passos que nos trouxeram até aqui.
+            </p>
+          </div>
 
-        <div className="relative">
-          {/* Timeline line — left on mobile, center on desktop */}
-          <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-1 bg-white/5" />
-          <div
-            ref={lineRef}
-            className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-1 bg-soberano-gradient origin-top scale-y-0"
-          />
+          <div className="relative">
+            <div className="absolute left-5 top-0 bottom-0 w-1 bg-white/5" />
+            <div
+              ref={lineRef}
+              className="absolute left-5 top-0 bottom-0 w-1 bg-soberano-gradient origin-top scale-y-0"
+            />
 
-          <div className="space-y-12 md:space-y-24">
-            {MILESTONES.map((item, index) => (
-              /* ── Mobile: linha à esquerda, card à direita (full width)
-                 ── Desktop: alternating left/right */
-              <div
-                key={index}
-                className={`milestone-row relative
-                  flex items-center pl-16 md:pl-0
-                  md:justify-between md:gap-8
-                  ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}
-                `}
-              >
-                {/* Marker — absolute no mobile, in-flow no desktop */}
+            <div className="space-y-8">
+              {MILESTONES.map((item, index) => (
                 <div
-                  ref={(el) => { if (el) markerRefs.current[index] = el; }}
-                  className="
-                    absolute left-0 top-1/2 -translate-y-1/2
-                    md:relative md:left-auto md:top-auto md:translate-y-0
-                    z-10 w-10 h-10 md:w-12 md:h-12 shrink-0
-                    rounded-full bg-brand-charcoal border-4 border-brand-gray
-                    flex items-center justify-center text-brand-amber shadow-xl
-                  "
+                  key={index}
+                  className="milestone-row relative flex items-center pl-16"
                 >
-                  {item.icon}
+                  <div
+                    ref={(el) => { if (el) markerRefs.current[index] = el; }}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 shrink-0 rounded-full bg-brand-charcoal border-4 border-brand-gray flex items-center justify-center text-brand-amber shadow-xl"
+                  >
+                    {item.icon}
+                  </div>
+                  <div className="timeline-card w-full text-left bg-brand-charcoal/40 rounded-xl p-4 border border-white/5">
+                    <span className="text-brand-amber font-mono font-bold text-base mb-1 block">
+                      {item.year}
+                    </span>
+                    <h4 className="text-xl font-black mb-2">{item.title}</h4>
+                    <p className="text-foreground/70 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ─────────────────────────────────────────────
+          DESKTOP layout — Option A: Horizontal Rail
+      ───────────────────────────────────────────── */}
+      <div className="hidden md:block py-24 px-16">
+        {/* Ambient glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 25% 50%, rgba(234,88,12,0.05), transparent 60%)",
+          }}
+        />
+
+        {/* Section header */}
+        <header className="relative text-center mb-[72px] max-w-[720px] mx-auto">
+          <span className="block font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">
+            // Nossa Origem
+          </span>
+          <h3 className="text-[56px] leading-[0.95] uppercase mb-6">
+            Cinco capítulos,<br />uma única{" "}
+            <span className="text-soberano-gradient">brasa.</span>
+          </h3>
+          <p className="font-body text-base text-foreground/60 leading-relaxed max-w-xl mx-auto">
+            Seis anos de história contados em cinco atos — da expertise do açougueiro à construção de um reinado regional. Cada capítulo, um corte. Cada corte, um marco.
+          </p>
+        </header>
+
+        {/* Rail */}
+        <div className="relative max-w-[1200px] mx-auto">
+
+          {/* ── Row 1: Chapter labels + Years (fixed-height so markers align) ── */}
+          <div className="relative z-10 grid grid-cols-5 gap-6">
+            {DESKTOP_CHAPTERS.map((item, i) => (
+              <div
+                key={i}
+                ref={(el) => { if (el) desktopColRefs.current[i] = el; }}
+                className="flex flex-col items-center text-center"
+              >
+                <span className="font-label text-[11px] font-bold tracking-[0.22em] uppercase text-foreground/40 mb-[14px]">
+                  {item.chapter}
+                </span>
+                {/* Fixed 72px height keeps all markers at the same Y */}
+                <div className="h-[72px] flex flex-col items-center justify-end mb-[22px]">
+                  {item.yearLines.map((line, li) => (
+                    <span
+                      key={li}
+                      className={`block font-heading text-[36px] leading-none tracking-[0.01em] ${
+                        item.active ? "text-soberano-gradient" : ""
+                      }`}
+                    >
+                      {line}
+                    </span>
+                  ))}
                 </div>
 
-                {/* Card */}
-                <div
-                  className={`
-                    timeline-card w-full md:w-[45%]
-                    text-left ${index % 2 === 0 ? "md:text-right" : "md:text-left"}
-                    bg-brand-charcoal/40 md:bg-transparent
-                    rounded-xl md:rounded-none
-                    p-4 md:p-0
-                    border border-white/5 md:border-0
-                  `}
-                >
-                  <span className="text-brand-amber font-mono font-bold text-base md:text-lg mb-1 md:mb-2 block">
-                    {item.year}
-                  </span>
-                  <h4 className="text-xl md:text-2xl font-black mb-2 md:mb-3">{item.title}</h4>
-                  <p className="text-foreground/70 text-sm leading-relaxed">
-                    {item.description}
+                {/* ── Marker ── */}
+                <div className="relative z-10">
+                  {item.active && (
+                    <span className="absolute -inset-2 rounded-full animate-ping bg-brand-amber/20" />
+                  )}
+                  <div
+                    className={`w-14 h-14 rounded-full flex items-center justify-center relative z-10 transition-all duration-300 ${
+                      item.active
+                        ? "text-brand-gray shadow-[0_10px_30px_-6px_rgba(234,88,12,0.5)]"
+                        : "bg-brand-gray border-2 border-white/10 text-foreground/60"
+                    }`}
+                    style={
+                      item.active
+                        ? { background: "linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)" }
+                        : {}
+                    }
+                  >
+                    <item.Icon className="w-[22px] h-[22px]" strokeWidth={2} />
+                  </div>
+                </div>
+
+                {/* ── Card ── */}
+                <div className="mt-8 px-2">
+                  <h4 className="font-heading text-2xl leading-[1.05] uppercase tracking-[0.01em] mb-3">
+                    {item.title}
+                  </h4>
+                  <p className="font-body text-[13.5px] leading-[1.55] text-foreground/60">
+                    {item.desc}
                   </p>
                 </div>
-
-                {/* Desktop spacer */}
-                <div className="hidden md:block md:w-[45%]" />
               </div>
             ))}
           </div>
+
+          {/* ── Horizontal lines — positioned at marker center
+               chapter-label (~16px) + mb-14 + year-box (72px) + mb-22 + half-marker (28px) = ~152px ── */}
+          <div
+            ref={bgLineRef}
+            className="absolute inset-x-0 h-[2px] pointer-events-none"
+            style={{
+              top: "152px",
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 8%, rgba(255,255,255,0.1) 92%, transparent 100%)",
+            }}
+          />
+          <div
+            ref={activeLineRef}
+            className="absolute left-0 h-[2px] pointer-events-none"
+            style={{
+              top: "152px",
+              width: "0%",
+              zIndex: 0,
+              background: "linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)",
+            }}
+          />
         </div>
+
+        {/* Footer note */}
+        <p className="relative mt-24 text-center font-heading text-xl tracking-[0.12em] uppercase text-foreground/40">
+          O trono espera{" "}
+          <span className="text-soberano-gradient">por você.</span>
+        </p>
       </div>
     </section>
   );

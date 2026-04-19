@@ -15,6 +15,8 @@ export default function Hero() {
     const section = sectionRef.current;
     if (!video || !section) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    video.src = isMobile ? "/videos/hero-mobile.mp4" : "/videos/hero-desktop.mp4";
     video.pause();
     video.load();
 
@@ -90,7 +92,6 @@ export default function Hero() {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <video
           ref={videoRef}
-          src="/videos/hero.mp4"
           muted
           playsInline
           preload="auto"
@@ -102,8 +103,8 @@ export default function Hero() {
 
         <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/10 rounded-full blur-[150px] -z-10" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4 pt-20">
-          <div ref={textRef} className="flex flex-col text-left">
+        <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-12 md:items-center px-4 pt-20 pb-24 md:pb-0 self-stretch md:self-auto">
+          <div ref={textRef} className="flex flex-col text-left flex-1 md:flex-none w-full justify-center md:justify-start">
             <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 border border-white/20 text-brand-amber text-sm font-medium mb-6">
               <Star className="h-4 w-4 fill-brand-amber" />
               <span>O melhor de Santa Rita, PB</span>
@@ -114,15 +115,15 @@ export default function Hero() {
               <span className="text-soberano-gradient">Sabor Soberano</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-foreground/70 mb-10 max-w-xl">
+            <p className="text-lg md:text-xl text-foreground/70 mb-8 md:mb-10 max-w-xl">
               Esqueça o comum. Experimente blends artesanais criados por um mestre açougueiro que entende o DNA da carne.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-start">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 justify-start">
               <Link
-                href="https://wa.me/5583986256727"
+                href="https://app.cardapioweb.com/soberano_burguer"
                 target="_blank"
-                className="inline-flex items-center justify-center rounded-lg bg-soberano-gradient text-white text-base md:text-lg font-bold px-8 py-4 md:px-10 md:py-5 shadow-xl shadow-brand-orange/20 hover:scale-105 transition-transform"
+                className="inline-flex items-center justify-center rounded-lg bg-soberano-gradient text-white text-base md:text-lg font-bold px-8 py-4 md:px-10 md:py-5 shadow-xl shadow-brand-orange/20 hover:scale-105 transition-transform w-full sm:w-auto"
               >
                 FAÇA SEU PEDIDO AGORA
                 <ChevronRight className="ml-2 h-5 w-5" />
@@ -130,7 +131,7 @@ export default function Hero() {
 
               <Link
                 href="#history"
-                className="inline-flex items-center justify-center rounded-lg bg-black/50 border border-white/20 text-brand-amber text-base md:text-lg font-bold px-8 py-4 md:px-10 md:py-5 hover:bg-black/70 hover:text-white transition-all"
+                className="inline-flex items-center justify-center rounded-lg bg-black/50 border border-white/20 text-brand-amber text-base md:text-lg font-bold px-8 py-4 md:px-10 md:py-5 hover:bg-black/70 hover:text-white transition-all w-full sm:w-auto"
               >
                 Nossa Origem
               </Link>

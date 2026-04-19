@@ -61,8 +61,8 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section className="py-24 bg-brand-gray overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4 mb-16">
+    <section className="py-14 md:py-24 bg-brand-gray overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-4 mb-10 md:mb-16">
         <SectionHeading
           badge="Prova Social"
           title="A Palavra de Quem Já Provou"
@@ -74,7 +74,7 @@ export default function Reviews() {
       <div className="relative flex">
         <div
           ref={scrollRef}
-          className="flex gap-6 whitespace-nowrap py-10"
+          className="flex gap-6 whitespace-nowrap py-6 md:py-10"
         >
           {[...REVIEWS, ...REVIEWS].map((review, index) => (
             <div
@@ -111,7 +111,7 @@ export default function Reviews() {
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-brand-gray to-transparent z-20" />
       </div>
 
-      <div className="text-center mt-12">
+      <div className="text-center mt-8 md:mt-12">
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
           <Image
             src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"

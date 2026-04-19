@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useStoreStatus } from "@/hooks/useStoreStatus";
 import Link from "next/link";
 import { ArrowUp, ChevronDown } from "lucide-react";
 
@@ -85,6 +86,7 @@ function AccordionItem({
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const { isOpen, closingTime, openingTime, nextOpenLabel } = useStoreStatus();
 
   return (
     <footer className="bg-brand-gray border-t border-white/5">
@@ -99,21 +101,24 @@ export default function Footer() {
 
           <div className="flex items-center gap-2 mb-3">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOpen ? "bg-green-400" : "bg-red-400"}`} />
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${isOpen ? "bg-green-400" : "bg-red-400"}`} />
             </span>
-            <span className="text-[11px] font-black tracking-[0.2em] uppercase text-green-400">
-              Aberto agora
+            <span className={`text-[11px] font-black tracking-[0.2em] uppercase ${isOpen ? "text-green-400" : "text-red-400"}`}>
+              {isOpen ? "Aberto agora" : "Fechado agora"}
             </span>
           </div>
 
           <p className="font-black text-white uppercase leading-none" style={{ fontFamily: "var(--font-heading, Teko, Impact, sans-serif)", fontSize: "42px", letterSpacing: "0.01em" }}>
-            Hoje até{" "}
-            <span className="text-soberano-gradient">00:00</span>
+            {isOpen ? (
+              <>Hoje até{" "}<span className="text-soberano-gradient">{closingTime}</span></>
+            ) : (
+              <>Abre {nextOpenLabel} às{" "}<span className="text-soberano-gradient">{openingTime}</span></>
+            )}
           </p>
 
           <p className="text-[13px] text-white/50 mt-3">
-            Terça · Tibiri II, Santa Rita — PB
+            Terça · Tibiri, Santa Rita — PB
           </p>
         </div>
 
@@ -137,25 +142,17 @@ export default function Footer() {
 
           <AccordionItem number="02" title="Funcionamento">
             <ul className="space-y-0">
-              <li className="flex justify-between items-center py-2.5 text-[13.5px] text-white/60">
-                <span>Segunda-feira</span>
-                <span className="text-[9.5px] font-black tracking-[0.15em] uppercase text-brand-orange bg-white/5 px-2 py-1 rounded">Fechado</span>
-              </li>
-              <li className="flex justify-between items-center py-2.5 text-[13.5px] text-white/60">
-                <span>Terça a Quinta</span>
-                <span className="text-white/90 tabular-nums">17:30 – 00:00</span>
-              </li>
               <li className="flex justify-between items-center py-2.5 text-[13.5px] font-bold text-white/90">
-                <span>Sexta a Domingo</span>
-                <span className="tabular-nums">17:30 – 00:00</span>
+                <span>Segunda a Domingo</span>
+                <span className="tabular-nums">17h30 – 00h</span>
               </li>
             </ul>
           </AccordionItem>
 
           <AccordionItem number="03" title="Contato">
             <p className="text-[13.5px] text-white/60 leading-relaxed mb-3">
-              Tibiri II, Santa Rita — PB<br />
-              Referência: Próximo ao Colégio X
+              R. Emb. Milton Cabral, 456<br />
+              Tibiri, Santa Rita — PB, 58302-510
             </p>
             <p className="text-[20px] font-black text-white">(83) 98625-6727</p>
           </AccordionItem>
@@ -241,17 +238,9 @@ export default function Footer() {
             <div>
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Funcionamento</h5>
               <ul className="space-y-4 text-sm text-foreground/60">
-                <li className="flex justify-between">
-                  <span>Segunda-feira</span>
-                  <span className="text-brand-orange font-bold uppercase text-[10px] bg-white/5 px-2 py-1 rounded">Fechado</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Terça a Quinta</span>
-                  <span className="text-white/90">17:30 - 00:00</span>
-                </li>
                 <li className="flex justify-between font-bold text-white/90">
-                  <span>Sexta a Domingo</span>
-                  <span>17:30 - 00:00</span>
+                  <span>Segunda a Domingo</span>
+                  <span>17h30 – 00h</span>
                 </li>
               </ul>
             </div>
@@ -260,8 +249,8 @@ export default function Footer() {
             <div>
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Contato</h5>
               <p className="text-sm text-foreground/60 mb-4">
-                Tibiri II, Santa Rita - PB<br />
-                Referência: Próximo ao Colégio X
+                R. Emb. Milton Cabral, 456<br />
+                Tibiri, Santa Rita - PB, 58302-510
               </p>
               <p className="text-lg font-black text-white">(83) 98625-6727</p>
             </div>
