@@ -238,9 +238,9 @@ export default function Footer() {
             <div>
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Funcionamento</h5>
               <ul className="space-y-4 text-sm text-foreground/60">
-                <li className="flex justify-between font-bold text-white/90">
+                <li className="flex flex-col gap-1 font-bold text-white/90">
                   <span>Segunda a Domingo</span>
-                  <span>17h30 – 00h</span>
+                  <span className="text-foreground/60 font-medium">17h30 – 00h</span>
                 </li>
               </ul>
             </div>
