@@ -36,7 +36,7 @@ export default function Atmosphere() {
   const { isOpen, closingTime, openingTime, nextOpenLabel } = useStoreStatus();
 
   return (
-    <section id="location" className="bg-brand-charcoal">
+    <section className="bg-brand-charcoal">
 
       {/* ── MOBILE — Magazine Cover ── */}
       <div className="md:hidden bg-brand-gray">

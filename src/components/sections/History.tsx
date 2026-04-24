@@ -205,7 +205,6 @@ export default function History() {
 
   return (
     <section
-      id="history"
       ref={sectionRef}
       className="bg-brand-gray relative overflow-hidden"
     >
