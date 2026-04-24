@@ -13,15 +13,15 @@ export default function Home() {
       <div id="home">
         <Hero />
       </div>
-      <div id="history">
-        <History />
-      </div>
       <div id="menu">
         <MenuHighlights />
       </div>
       <Reviews />
       <div id="location">
         <Atmosphere />
+      </div>
+      <div id="history">
+        <History />
       </div>
       <Footer />
     </main>
