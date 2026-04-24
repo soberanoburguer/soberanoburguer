@@ -19,11 +19,24 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    // Desktop: Hero tem 300vh — só opaca após sair do vídeo
+    // Mobile: Hero tem 100vh — threshold pequeno
+    const getThreshold = () =>
+      window.matchMedia("(min-width: 768px)").matches
+        ? window.innerHeight * 3
+        : 60;
+
+    let threshold = getThreshold();
+
+    const handleScroll = () => setIsScrolled(window.scrollY > threshold);
+    const handleResize = () => { threshold = getThreshold(); };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
