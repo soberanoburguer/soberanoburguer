@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Soberano Burguer | O Reinado do Sabor",
     description: "Blends artesanais criados por quem entende de carne. O melhor hambúrguer de Santa Rita, PB.",
-    url: "https://soberanoburguer.com.br",
     siteName: "Soberano Burguer",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Soberano Burguer" }],
     locale: "pt_BR",
