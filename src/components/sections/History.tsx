@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { UtensilsCrossed, Rocket, Truck, Users, Crown } from "lucide-react";
@@ -22,20 +22,20 @@ const MILESTONES = [
   },
   {
     year: "2020 - 2022",
-    title: "A Era da Euquipe",
-    description: "Gustavo preparava, montava e entregava. O contato direto com cada cliente forjou uma base de fãs leais.",
+    title: <>A Era da <span className="text-brand-amber">Eu</span>quipe</>,
+    description: "Gustavo preparava, montava e subia na moto pra entregar. Na porta de cada cliente, o Soberano conquistava um fã.",
     icon: <Truck className="w-6 h-6" />,
   },
   {
     year: "2023 - 2024",
-    title: "Consolidação da Marca",
-    description: "O 'corre' individual virou empresa. Equipe formada e processos refinados para manter o padrão de excelência.",
+    title: "O 'Corre' Virou Empresa",
+    description: "A garagem ficou pequena — a ambição, não. Equipe montada, processos no lugar, padrão mantido.",
     icon: <Users className="w-6 h-6" />,
   },
   {
     year: "2026",
-    title: "O Legado Soberano",
-    description: "6 anos de história. Referência regional e o compromisso inabalável com o sabor que só um mestre açougueiro entrega.",
+    title: "6 Anos de Reinado",
+    description: "Seis anos de brasa e dedicação. O açougueiro virou soberano. E o reinado apenas começa.",
     icon: <Crown className="w-6 h-6" />,
   },
 ];
@@ -45,7 +45,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. I",
     yearLines: ["Antes", "2020"],
     title: "A Lâmina",
-    desc: "Uma vida inteira entre facas e ganchos. O olho clínico, os blends, o vocabulário da carne — forjados antes de qualquer chapa acender.",
+    desc: "Anos de açougueiro antes de qualquer burguer. O olho clínico, os cortes certos. Esse conhecimento ninguém improvisa.",
     Icon: UtensilsCrossed,
     active: false,
   },
@@ -53,7 +53,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. II",
     yearLines: ["Mai", "2020"],
     title: "A Brasa",
-    desc: "Uma churrasqueira 'porquinho', a mesa da cozinha, a garagem. Sem capital, muita fé — e o nome soberano já prometendo o que viria.",
+    desc: "Garagem, chapa improvisada, zero investidor. Só raça, fé e o nome Soberano já escolhido antes de qualquer venda.",
     Icon: Rocket,
     active: false,
   },
@@ -61,7 +61,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. III",
     yearLines: ["2020", "2022"],
     title: "A Estrada",
-    desc: "A 'euquipe' de um homem só. Gustavo preparava, montava e subia na moto para entregar. Na porta do cliente, o mito nascia.",
+    desc: "A 'euquipe' de um homem só. Gustavo preparava, montava e subia na moto para entregar. Na porta do cliente, o fã nascia.",
     Icon: Truck,
     active: false,
   },
@@ -69,7 +69,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. IV",
     yearLines: ["2023", "2024"],
     title: "O Reino",
-    desc: "O 'corre' individual vira engrenagem. Rede de pessoas, processos, padrão. A garagem ficou pequena — a ambição, não.",
+    desc: "O 'corre' individual vira engrenagem. Rede de pessoas, processos, padrão. A garagem ficou pequena. A ambição, não.",
     Icon: Users,
     active: false,
   },
@@ -77,7 +77,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. V",
     yearLines: ["2026"],
     title: "O Legado",
-    desc: "Seis anos. Referência regional, padrão inabalável. O açougueiro virou soberano — e o reinado apenas começa.",
+    desc: "Seis anos. O açougueiro que começou numa garagem virou referência. E o reinado apenas começa.",
     Icon: Crown,
     active: true,
   },
@@ -94,6 +94,9 @@ export default function History() {
   const activeLineRef = useRef<HTMLDivElement>(null);
   const bgLineRef = useRef<HTMLDivElement>(null);
   const desktopColRefs = useRef<HTMLDivElement[]>([]);
+
+  const [activeDesktopIndex, setActiveDesktopIndex] = useState(0);
+  const activeDesktopIndexRef = useRef(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -167,17 +170,30 @@ export default function History() {
         // Pin section at its bottom — scroll only continues after bar reaches 5th card
         gsap.fromTo(
           activeLineRef.current,
-          { width: "0%" },
+          { scaleX: 0 },
           {
-            width: "100%",
+            scaleX: 1,
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "bottom bottom",
-              end: "+=800",
+              end: "+=2000",
               pin: true,
               anticipatePin: 1,
               scrub: 1,
+              snap: {
+                snapTo: 1 / 4,
+                duration: { min: 0.4, max: 0.7 },
+                delay: 0.05,
+                ease: "power2.inOut",
+              },
+              onUpdate: (self) => {
+                const newIndex = Math.min(4, Math.round(self.progress * 4));
+                if (newIndex !== activeDesktopIndexRef.current) {
+                  activeDesktopIndexRef.current = newIndex;
+                  setActiveDesktopIndex(newIndex);
+                }
+              },
             },
           }
         );
@@ -199,12 +215,12 @@ export default function History() {
       <div className="md:hidden py-14 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-brand-amber uppercase tracking-widest text-sm font-bold mb-3">Nossa Origem</h2>
+            <h2 className="font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">// Como Tudo Começou</h2>
             <h3 className="text-4xl md:text-5xl font-black mb-4 md:mb-6">
               De Açougueiro a <span className="text-soberano-gradient">Soberano</span>
             </h3>
             <p className="text-foreground/60 max-w-2xl mx-auto">
-              Uma jornada de 6 anos marcada pela coragem, técnica e o domínio total da carne. Conheça os passos que nos trouxeram até aqui.
+              Seis anos. Uma garagem, uma moto e muita carne boa. Veja como o Soberano nasceu.
             </p>
           </div>
 
@@ -259,14 +275,14 @@ export default function History() {
         {/* Section header */}
         <header className="relative text-center mb-[72px] max-w-[720px] mx-auto">
           <span className="block font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">
-            // Nossa Origem
+            // Como Tudo Começou
           </span>
           <h3 className="text-[56px] leading-[0.95] uppercase mb-6">
             Cinco capítulos,<br />uma única{" "}
             <span className="text-soberano-gradient">brasa.</span>
           </h3>
           <p className="font-body text-base text-foreground/60 leading-relaxed max-w-xl mx-auto">
-            Seis anos de história contados em cinco atos — da expertise do açougueiro à construção de um reinado regional. Cada capítulo, um corte. Cada corte, um marco.
+            Seis anos. Cinco capítulos. De açougueiro a soberano, cada etapa forjou o reinado que você conhece hoje.
           </p>
         </header>
 
@@ -290,7 +306,7 @@ export default function History() {
                     <span
                       key={li}
                       className={`block font-heading text-[36px] leading-none tracking-[0.01em] ${
-                        item.active ? "text-soberano-gradient" : ""
+                        activeDesktopIndex === i ? "text-soberano-gradient" : ""
                       }`}
                     >
                       {line}
@@ -300,17 +316,20 @@ export default function History() {
 
                 {/* ── Marker ── */}
                 <div className="relative z-10">
-                  {item.active && (
-                    <span className="absolute -inset-2 rounded-full animate-ping bg-brand-amber/20" />
+                  {/* Mascarador permanente: cobre a linha independente do estado ativo */}
+                  <div className="absolute inset-0 rounded-full bg-brand-gray z-0" />
+
+                  {activeDesktopIndex === i && (
+                    <span className="absolute -inset-2 rounded-full animate-ping bg-brand-amber/20 z-[1]" />
                   )}
                   <div
                     className={`w-14 h-14 rounded-full flex items-center justify-center relative z-10 transition-all duration-300 ${
-                      item.active
+                      activeDesktopIndex === i
                         ? "text-brand-gray shadow-[0_10px_30px_-6px_rgba(234,88,12,0.5)]"
                         : "bg-brand-gray border-2 border-white/10 text-foreground/60"
                     }`}
                     style={
-                      item.active
+                      activeDesktopIndex === i
                         ? { background: "linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)" }
                         : {}
                     }
@@ -339,17 +358,18 @@ export default function History() {
             className="absolute inset-x-0 h-[2px] pointer-events-none"
             style={{
               top: "152px",
+              zIndex: 1,
               background:
                 "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 8%, rgba(255,255,255,0.1) 92%, transparent 100%)",
             }}
           />
           <div
             ref={activeLineRef}
-            className="absolute left-0 h-[2px] pointer-events-none"
+            className="absolute inset-x-0 h-[2px] pointer-events-none origin-left"
             style={{
               top: "152px",
-              width: "0%",
-              zIndex: 0,
+              transform: "scaleX(0)",
+              zIndex: 2,
               background: "linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)",
             }}
           />

@@ -9,6 +9,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const posterRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -17,7 +18,6 @@ export default function Hero() {
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     video.src = isMobile ? "/videos/hero-mobile.mp4" : "/videos/hero-desktop.mp4";
-    video.pause();
     video.load();
 
     const ctx = gsap.context(() => {
@@ -31,7 +31,53 @@ export default function Hero() {
       });
     });
 
-    // ── Scroll-driven video com RAF contínuo + lerp ──
+    // ── Mobile: play once, freeze at last frame ──
+    if (isMobile) {
+      section.style.height = "100vh";
+      video.autoplay = true;
+
+      // Pré-carrega a imagem quando o vídeo chega em 80% — sem delay no fade
+      const POSTER_SRC = "/images/hero-bg.webp";
+      let preloaded = false;
+      const onTimeUpdate = () => {
+        if (!preloaded && video.duration && video.currentTime / video.duration >= 0.8) {
+          preloaded = true;
+          const img = posterRef.current;
+          if (img) img.src = POSTER_SRC;
+        }
+      };
+      video.addEventListener("timeupdate", onTimeUpdate);
+
+      // Ao terminar: fade in da imagem estática, fade out do vídeo
+      const onEnded = () => {
+        const poster = posterRef.current;
+        if (poster) {
+          if (!poster.src) poster.src = POSTER_SRC; // fallback se timeupdate não disparou
+          poster.style.transition = "opacity 0.8s ease";
+          poster.style.opacity = "1";
+        }
+        video.style.transition = "opacity 0.8s ease";
+        video.style.opacity = "0";
+      };
+      video.addEventListener("ended", onEnded);
+
+      const playOnReady = () => {
+        video.play().catch(() => {/* autoplay bloqueado pelo browser — fica estático */});
+      };
+      if (video.readyState >= 1) {
+        playOnReady();
+      } else {
+        video.addEventListener("loadedmetadata", playOnReady, { once: true });
+      }
+      return () => {
+        ctx.revert();
+        video.removeEventListener("loadedmetadata", playOnReady);
+        video.removeEventListener("timeupdate", onTimeUpdate);
+        video.removeEventListener("ended", onEnded);
+      };
+    }
+
+    // ── Desktop: scroll-driven video com RAF contínuo + lerp ──
     let targetTime = 0;
     let currentTime = 0;
     let rafId = 0;
@@ -98,6 +144,16 @@ export default function Hero() {
           disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover [object-position:70%_50%] md:object-center -z-10"
         />
+        {/* Mobile: imagem estática que substitui o vídeo após ele terminar */}
+        {/* src setado dinamicamente em onTimeUpdate/onEnded — não baixa no load inicial */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={posterRef}
+          alt=""
+          aria-hidden="true"
+          className="md:hidden absolute inset-0 w-full h-full object-cover [object-position:70%_50%] -z-10"
+          style={{ opacity: 0 }}
+        />
 
         <div className="absolute inset-0 -z-10 bg-black/50" />
 
@@ -107,16 +163,16 @@ export default function Hero() {
           <div ref={textRef} className="flex flex-col text-left flex-1 md:flex-none w-full justify-center md:justify-start">
             <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 border border-white/20 text-brand-amber text-sm font-medium mb-6">
               <Star className="h-4 w-4 fill-brand-amber" />
-              <span>O melhor de Santa Rita, PB</span>
+              <span>Santa Rita, PB — Desde 2020</span>
             </div>
 
             <h1 className="text-6xl md:text-8xl font-black leading-none mb-6 uppercase">
-              O Reinado do <br />
+              Aqui Reina o <br />
               <span className="text-soberano-gradient">Sabor Soberano</span>
             </h1>
 
             <p className="text-lg md:text-xl text-foreground/70 mb-8 md:mb-10 max-w-xl">
-              Esqueça o comum. Experimente blends artesanais criados por um mestre açougueiro que entende o DNA da carne.
+              Blends artesanais criados por um açougueiro que passou a vida inteira dominando a carne. Agora na sua mesa.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 justify-start">
@@ -129,12 +185,6 @@ export default function Hero() {
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
 
-              <Link
-                href="#history"
-                className="inline-flex items-center justify-center rounded-lg bg-black/50 border border-white/20 text-brand-amber text-base md:text-lg font-bold px-8 py-4 md:px-10 md:py-5 hover:bg-black/70 hover:text-white transition-all w-full sm:w-auto"
-              >
-                Nossa Origem
-              </Link>
             </div>
           </div>
 
