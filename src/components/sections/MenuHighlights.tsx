@@ -28,26 +28,26 @@ const BURGERS = [
   },
 ];
 
-const SWEETS = [
+const SIDES = [
   {
-    title: "Milkshake Soberano",
-    description: "Ninho premium com Nutella legítima, borda de chocolate e chantilly.",
-    price: "24,00",
-    image: "/images/shake-ninho.webp",
+    title: "Batata Frita Soberana",
+    description: "Crocante por fora, macia por dentro. Frita na hora e temperada com o toque certo — o acompanhamento que todo reinado merece.",
+    price: "14,99",
+    image: "/images/menu/batatafrita.png",
     isPopular: true,
   },
   {
-    title: "Açaí Real (500ml)",
-    description: "Açaí puro com Nutella, leite em pó, morango e pedaços de paçoca.",
-    price: "26,00",
-    image: "/images/acai-real.webp",
+    title: "Milkshake do Trono",
+    description: "Cremoso, gelado e feito pra durar até o último gole. O complemento perfeito pra qualquer burger soberano.",
+    price: "14,99",
+    image: "/images/menu/milkshakes.webp",
     isPopular: false,
   },
   {
-    title: "Milkshake de Morango",
-    description: "Morango fresco, calda artesanal e base cremosa de leite.",
-    price: "21,00",
-    image: "/images/shake-morango.webp",
+    title: "Onion Rings",
+    description: "Anéis de cebola empanados na casquinha crocante, dourados na medida certa. Impossível comer só um.",
+    price: "14,99",
+    image: "/images/menu/onionrings.webp",
     isPopular: false,
   },
 ];
@@ -68,7 +68,7 @@ export default function MenuHighlights() {
               Burgers
             </TabsTrigger>
             <TabsTrigger value="sweets" className="!h-auto py-2.5 data-[active]:bg-soberano-gradient data-[active]:!text-white data-[active]:shadow-none transition-all font-bold text-white/50">
-              Doces & Shakes
+              Acompanhamentos
             </TabsTrigger>
           </TabsList>
 
@@ -79,8 +79,8 @@ export default function MenuHighlights() {
           </TabsContent>
 
           <TabsContent value="sweets" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 outline-none">
-            {SWEETS.map((sweet, index) => (
-              <ProductCard key={index} {...sweet} />
+            {SIDES.map((side, index) => (
+              <ProductCard key={index} {...side} />
             ))}
           </TabsContent>
         </Tabs>
