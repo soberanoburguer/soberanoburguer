@@ -142,6 +142,7 @@ export default function Hero() {
           playsInline
           preload="auto"
           disablePictureInPicture
+          poster="/images/hero-bg.webp"
           className="absolute inset-0 w-full h-full object-cover [object-position:70%_50%] md:object-center -z-10"
         />
         {/* Mobile: imagem estática que substitui o vídeo após ele terminar */}
