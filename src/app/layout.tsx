@@ -21,7 +21,12 @@ const barlowCondensed = Barlow_Condensed({
   weight: ["400", "500", "600", "700"],
 });
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Soberano Burguer | O Reinado do Sabor",
   description: "Blends artesanais criados por quem entende de carne. O melhor hambúrguer de Santa Rita, PB.",
   keywords: ["hambúrguer artesanal", "delivery santa rita", "soberano burguer", "melhor hambúrguer", "tibiri"],
