@@ -6,7 +6,7 @@ import SmoothScroll from "@/components/providers/smooth-scroll";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "900"],
 });
 
 const teko = Teko({
@@ -26,8 +26,23 @@ export const metadata: Metadata = {
   description: "Blends artesanais criados por quem entende de carne. O melhor hambúrguer de Santa Rita, PB.",
   keywords: ["hambúrguer artesanal", "delivery santa rita", "soberano burguer", "melhor hambúrguer", "tibiri"],
   icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/brand/monogram.svg",
+    apple: "/brand/monogram.svg",
+  },
+  openGraph: {
+    title: "Soberano Burguer | O Reinado do Sabor",
+    description: "Blends artesanais criados por quem entende de carne. O melhor hambúrguer de Santa Rita, PB.",
+    url: "https://soberanoburguer.com.br",
+    siteName: "Soberano Burguer",
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Soberano Burguer" }],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Soberano Burguer | O Reinado do Sabor",
+    description: "Blends artesanais criados por quem entende de carne. O melhor hambúrguer de Santa Rita, PB.",
+    images: ["/images/og-image.png"],
   },
 };
 

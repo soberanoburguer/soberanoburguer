@@ -187,7 +187,7 @@ export default function Atmosphere() {
           {/* CTAs */}
           <div className="mt-5 flex flex-col gap-2.5">
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Soberano+Burguer+Santa+Rita+PB"
+              href="https://www.google.com/maps/search/?api=1&query=R.+Emb.+Milton+Cabral,+456,+Tibiri,+Santa+Rita,+PB,+58302-510"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2.5 py-4 rounded-full bg-soberano-gradient text-brand-gray text-[13px] font-black uppercase tracking-[0.14em] shadow-[0_10px_30px_-5px_rgba(234,88,12,0.4)]"
@@ -265,7 +265,7 @@ export default function Atmosphere() {
                 R. Emb. Milton Cabral, 456 - Tibiri, Santa Rita - PB, 58302-510
               </p>
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=Soberano+Burguer+Santa+Rita+PB"
+                href="https://www.google.com/maps/search/?api=1&query=R.+Emb.+Milton+Cabral,+456,+Tibiri,+Santa+Rita,+PB,+58302-510"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-bold transition-all"
