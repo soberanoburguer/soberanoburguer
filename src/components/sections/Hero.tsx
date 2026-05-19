@@ -164,7 +164,7 @@ export default function Hero() {
           <div ref={textRef} className="flex flex-col text-left flex-1 md:flex-none w-full justify-center md:justify-start">
             <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 border border-white/20 text-brand-amber text-sm font-medium mb-6">
               <Star className="h-4 w-4 fill-brand-amber" />
-              <span>Santa Rita, PB — Desde 2020</span>
+              <span>Tibiri II, Santa Rita — PB</span>
             </div>
 
             <h1 className="text-6xl md:text-8xl font-black leading-none mb-6 uppercase">
@@ -173,7 +173,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg md:text-xl text-foreground/70 mb-8 md:mb-10 max-w-xl">
-              Blends artesanais criados por um açougueiro que passou a vida inteira dominando a carne. Agora na sua mesa.
+              Blends artesanais criados por um açougueiro que passou a vida inteira dominando a carne. Delivery em toda a região de Santa Rita (Tibiri II) e Bayeux!
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 justify-start">

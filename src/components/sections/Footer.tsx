@@ -118,7 +118,7 @@ export default function Footer() {
           </p>
 
           <p className="text-[13px] text-white/50 mt-3">
-            Terça · Tibiri, Santa Rita — PB
+            Terça · Tibiri II, Santa Rita — PB
           </p>
         </div>
 
@@ -150,9 +150,12 @@ export default function Footer() {
           </AccordionItem>
 
           <AccordionItem number="03" title="Contato">
-            <p className="text-[13.5px] text-white/60 leading-relaxed mb-3">
+            <p className="text-[13.5px] text-white/60 leading-relaxed mb-1">
               R. Emb. Milton Cabral, 456<br />
-              Tibiri, Santa Rita — PB, 58302-510
+              Tibiri II, Santa Rita — PB, 58302-510
+            </p>
+            <p className="text-[12.5px] text-brand-amber font-semibold mb-3">
+              Delivery para toda Santa Rita e Bayeux
             </p>
             <p className="text-[20px] font-black text-white">(83) 98625-6727</p>
           </AccordionItem>
@@ -174,7 +177,7 @@ export default function Footer() {
           </div>
 
           <p className="text-[13px] text-white/50 leading-relaxed">
-            A verdadeira experiência soberana em Santa Rita. Blends criados com maestria técnica e amor pela brasa.
+            A verdadeira experiência soberana em Santa Rita e Bayeux. Blends criados com maestria técnica e amor pela brasa.
           </p>
 
           <div className="flex gap-3">
@@ -208,7 +211,7 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <Image src="/brand/wordmark+logo.svg" alt="Soberano Burguer" width={180} height={50} className="mb-6 opacity-90" />
               <p className="text-sm text-foreground/50 leading-relaxed mb-6">
-                A verdadeira experiência soberana em Santa Rita. Blends criados com maestria técnica e amor pela brasa.
+                A verdadeira experiência soberana em Santa Rita e Bayeux. Blends criados com maestria técnica e amor pela brasa.
               </p>
               <div className="flex gap-4">
                 {SOCIAL_LINKS.map((s) => (
@@ -248,9 +251,12 @@ export default function Footer() {
             {/* Contato */}
             <div>
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Contato</h5>
-              <p className="text-sm text-foreground/60 mb-4">
+              <p className="text-sm text-foreground/60 mb-1">
                 R. Emb. Milton Cabral, 456<br />
-                Tibiri, Santa Rita - PB, 58302-510
+                Tibiri II, Santa Rita - PB, 58302-510
+              </p>
+              <p className="text-brand-amber text-xs font-semibold mb-4">
+                Delivery para toda Santa Rita e Bayeux
               </p>
               <p className="text-lg font-black text-white">(83) 98625-6727</p>
             </div>

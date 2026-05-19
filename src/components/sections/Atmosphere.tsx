@@ -21,7 +21,7 @@ const FEATURES = [
   {
     num: "03",
     title: "Localização Privilegiada",
-    desc: "Fácil acesso no coração de Tibiri, Santa Rita.",
+    desc: "Fácil acesso no coração de Tibiri II, Santa Rita.",
     Icon: MapPin,
   },
   {
@@ -157,10 +157,13 @@ export default function Atmosphere() {
             </span>
             <h3 className="font-heading text-[20px] leading-[1.1] text-white uppercase tracking-[0.02em] m-0">
               R. Emb. Milton Cabral, 456 —<br />
-              Tibiri, Santa Rita — PB
+              Tibiri II, Santa Rita — PB
             </h3>
             <p className="text-[12.5px] text-white/60 m-0">
               CEP 58302-510 · (83) 98625-6727
+            </p>
+            <p className="text-[12px] text-brand-amber font-semibold m-0">
+              Delivery em toda Santa Rita e Bayeux
             </p>
             {/* Live status row */}
             <div className="flex items-center gap-2">
@@ -261,8 +264,11 @@ export default function Atmosphere() {
             </div>
 
             <div className="text-center md:text-left">
-              <p className="text-foreground/40 text-sm mb-10 md:mb-2">
-                R. Emb. Milton Cabral, 456 - Tibiri, Santa Rita - PB, 58302-510
+              <p className="text-foreground/40 text-sm mb-1">
+                R. Emb. Milton Cabral, 456 - Tibiri II, Santa Rita - PB, 58302-510
+              </p>
+              <p className="text-brand-amber text-xs font-semibold mb-4">
+                Entregamos em toda a região de Santa Rita e Bayeux
               </p>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=R.+Emb.+Milton+Cabral,+456,+Tibiri,+Santa+Rita,+PB,+58302-510"
