@@ -25,19 +25,22 @@ const baseUrl = "https://www.soberanoburguerpb.com.br";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita e Bayeux",
-  description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita (Tibiri II) e Bayeux. Entrega rápida e sabor soberano!",
+  title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita, Bayeux e João Pessoa",
+  description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita, Bayeux e João Pessoa. Entrega rápida e sabor soberano!",
   keywords: [
     "hambúrguer artesanal",
     "delivery santa rita",
     "delivery bayeux",
+    "delivery joao pessoa",
     "soberano burguer",
     "melhor hambúrguer",
     "tibiri ii",
     "hamburgueria santa rita",
     "hamburgueria bayeux",
+    "hamburgueria joao pessoa",
     "artesanal santa rita",
     "soberano burguer santa rita",
+    "soberano burguer joao pessoa",
     "soberano burguer bayeux"
   ],
   icons: {
@@ -45,8 +48,8 @@ export const metadata: Metadata = {
     apple: "/brand/monogram.svg",
   },
   openGraph: {
-    title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita e Bayeux",
-    description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita (Tibiri II) e Bayeux. Entrega rápida e sabor soberano!",
+    title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita, Bayeux e João Pessoa",
+    description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita, Bayeux e João Pessoa. Entrega rápida e sabor soberano!",
     siteName: "Soberano Burguer",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Soberano Burguer" }],
     locale: "pt_BR",
@@ -54,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita e Bayeux",
-    description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita (Tibiri II) e Bayeux. Entrega rápida e sabor soberano!",
+    title: "Soberano Burguer | Hambúrguer Artesanal & Delivery em Santa Rita, Bayeux e João Pessoa",
+    description: "Blends artesanais criados por quem entende de carne. Peça o melhor hambúrguer de Santa Rita, Bayeux e João Pessoa. Entrega rápida e sabor soberano!",
     images: ["/images/og-image.png"],
   },
 };
