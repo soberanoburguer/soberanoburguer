@@ -5,44 +5,13 @@ import Image from "next/image";
 import { useStoreStatus } from "@/hooks/useStoreStatus";
 import Link from "next/link";
 import { ArrowUp, ChevronDown } from "lucide-react";
+import { UnidadeInfo } from "@/lib/unidades";
 
 const NAV_LINKS = [
   { label: "Início", href: "#home" },
   { label: "Nossa História", href: "#history" },
   { label: "Cardápio", href: "#menu" },
   { label: "Localização", href: "#location" },
-];
-
-const SOCIAL_LINKS = [
-  {
-    label: "Instagram",
-    href: "https://instagram.com/soberano_burguer",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61566023285433",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-      </svg>
-    ),
-  },
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/5583986256727",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
-      </svg>
-    ),
-  },
 ];
 
 function AccordionItem({
@@ -72,7 +41,7 @@ function AccordionItem({
             open ? "border-brand-amber text-brand-amber rotate-180" : "border-white/10 text-white/40"
           }`}
         >
-          <ChevronDown className="w-3 h-3" />
+          <ChevronDown className="w-3.5 h-3.5" />
         </span>
       </button>
       <div
@@ -84,9 +53,45 @@ function AccordionItem({
   );
 }
 
-export default function Footer() {
+interface FooterProps {
+  unidade: UnidadeInfo;
+}
+
+export default function Footer({ unidade }: FooterProps) {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const { isOpen, closingTime, openingTime, nextOpenLabel } = useStoreStatus();
+
+  const socialLinks = [
+    {
+      label: "Instagram",
+      href: unidade.instagramLink,
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+        </svg>
+      ),
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/profile.php?id=61566023285433",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      ),
+    },
+    {
+      label: "WhatsApp",
+      href: unidade.whatsappLink,
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F07B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <footer className="bg-brand-gray border-t border-white/5">
@@ -118,7 +123,7 @@ export default function Footer() {
           </p>
 
           <p className="text-[13px] text-white/50 mt-3">
-            Terça · Tibiri II, Santa Rita — PB
+            Diariamente · {unidade.bairro}, {unidade.cidade} — PB
           </p>
         </div>
 
@@ -143,21 +148,23 @@ export default function Footer() {
           <AccordionItem number="02" title="Funcionamento">
             <ul className="space-y-0">
               <li className="flex justify-between items-center py-2.5 text-[13.5px] font-bold text-white/90">
-                <span>Segunda a Domingo</span>
-                <span className="tabular-nums">17h30 – 00h</span>
+                <span>{unidade.horario.split(" · ")[0]}</span>
+                <span className="tabular-nums">{unidade.horario.split(" · ")[1]}</span>
               </li>
             </ul>
           </AccordionItem>
 
           <AccordionItem number="03" title="Contato">
             <p className="text-[13.5px] text-white/60 leading-relaxed mb-1">
-              R. Emb. Milton Cabral, 456<br />
-              Tibiri II, Santa Rita — PB, 58302-510
+              {unidade.endereco}<br />
+              CEP {unidade.cep}
             </p>
-            <p className="text-[12.5px] text-brand-amber font-semibold mb-3">
-              Delivery para toda Santa Rita e Bayeux
-            </p>
-            <p className="text-[20px] font-black text-white">(83) 98625-6727</p>
+            {unidade.deliveryInfo && (
+              <p className="text-[12.5px] text-brand-amber font-semibold mb-3">
+                {unidade.deliveryInfo}
+              </p>
+            )}
+            <p className="text-[20px] font-black text-white">{unidade.telefone}</p>
           </AccordionItem>
 
           {/* Bottom border */}
@@ -177,15 +184,16 @@ export default function Footer() {
           </div>
 
           <p className="text-[13px] text-white/50 leading-relaxed">
-            A verdadeira experiência soberana em Santa Rita e Bayeux. Blends criados com maestria técnica e amor pela brasa.
+            A verdadeira experiência soberana em {unidade.cidade === "Santa Rita" ? "Santa Rita e Bayeux" : unidade.cidade}. Blends criados com maestria técnica e amor pela brasa.
           </p>
 
           <div className="flex gap-3">
-            {SOCIAL_LINKS.map((s) => (
+            {socialLinks.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 target="_blank"
+                rel="noopener noreferrer"
                 aria-label={s.label}
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
               >
@@ -211,11 +219,11 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <Image src="/brand/wordmark+logo.svg" alt="Soberano Burguer" width={180} height={50} className="mb-6 opacity-90" />
               <p className="text-sm text-foreground/50 leading-relaxed mb-6">
-                A verdadeira experiência soberana em Santa Rita e Bayeux. Blends criados com maestria técnica e amor pela brasa.
+                A verdadeira experiência soberana em {unidade.cidade === "Santa Rita" ? "Santa Rita e Bayeux" : unidade.cidade}. Blends criados com maestria técnica e amor pela brasa.
               </p>
               <div className="flex gap-4">
-                {SOCIAL_LINKS.map((s) => (
-                  <a key={s.label} href={s.href} target="_blank" aria-label={s.label}
+                {socialLinks.map((s) => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
                     className="w-10 h-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
                     {s.icon}
                   </a>
@@ -242,8 +250,8 @@ export default function Footer() {
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Funcionamento</h5>
               <ul className="space-y-4 text-sm text-foreground/60">
                 <li className="flex flex-col gap-1 font-bold text-white/90">
-                  <span>Segunda a Domingo</span>
-                  <span className="text-foreground/60 font-medium">17h30 – 00h</span>
+                  <span>{unidade.horario.split(" · ")[0]}</span>
+                  <span className="text-foreground/60 font-medium">{unidade.horario.split(" · ")[1]}</span>
                 </li>
               </ul>
             </div>
@@ -252,13 +260,15 @@ export default function Footer() {
             <div>
               <h5 className="font-black uppercase tracking-widest text-sm mb-6 text-brand-amber">Contato</h5>
               <p className="text-sm text-foreground/60 mb-1">
-                R. Emb. Milton Cabral, 456<br />
-                Tibiri II, Santa Rita - PB, 58302-510
+                {unidade.endereco}<br />
+                CEP {unidade.cep}
               </p>
-              <p className="text-brand-amber text-xs font-semibold mb-4">
-                Delivery para toda Santa Rita e Bayeux
-              </p>
-              <p className="text-lg font-black text-white">(83) 98625-6727</p>
+              {unidade.deliveryInfo && (
+                <p className="text-brand-amber text-xs font-semibold mb-4">
+                  {unidade.deliveryInfo}
+                </p>
+              )}
+              <p className="text-lg font-black text-white">{unidade.telefone}</p>
             </div>
           </div>
 
@@ -270,7 +280,7 @@ export default function Footer() {
             >
               Voltar ao topo
               <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-brand-amber transition-colors">
-                <ArrowUp className="w-3 h-3" />
+                <ArrowUp className="w-3.5 h-3.5" />
               </div>
             </button>
             <p className="text-xs text-foreground/30">

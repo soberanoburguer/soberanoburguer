@@ -4,36 +4,41 @@ import Image from "next/image";
 import SectionHeading from "@/components/ui/section-heading";
 import { Coffee, Music, Sparkles, MapPin } from "lucide-react";
 import { useStoreStatus } from "@/hooks/useStoreStatus";
+import { UnidadeInfo } from "@/lib/unidades";
 
-const FEATURES = [
-  {
-    num: "01",
-    title: "Música Ambiente",
-    desc: "Playlist selecionada para acompanhar o seu burger.",
-    Icon: Music,
-  },
-  {
-    num: "02",
-    title: "Higiene e Padrão",
-    desc: "Cozinha com rigor técnico de quem entende de carne.",
-    Icon: Sparkles,
-  },
-  {
-    num: "03",
-    title: "Localização Privilegiada",
-    desc: "Fácil acesso no coração de Tibiri II, Santa Rita.",
-    Icon: MapPin,
-  },
-  {
-    num: "04",
-    title: "Espaço Aconchegante",
-    desc: "O lugar perfeito para reunir amigos e família.",
-    Icon: Coffee,
-  },
-];
+interface AtmosphereProps {
+  unidade: UnidadeInfo;
+}
 
-export default function Atmosphere() {
+export default function Atmosphere({ unidade }: AtmosphereProps) {
   const { isOpen, closingTime, openingTime, nextOpenLabel } = useStoreStatus();
+
+  const features = [
+    {
+      num: "01",
+      title: "Música Ambiente",
+      desc: "Playlist selecionada para acompanhar o seu burger.",
+      Icon: Music,
+    },
+    {
+      num: "02",
+      title: "Higiene e Padrão",
+      desc: "Cozinha com rigor técnico de quem entende de carne.",
+      Icon: Sparkles,
+    },
+    {
+      num: "03",
+      title: "Localização Privilegiada",
+      desc: `Fácil acesso no coração de ${unidade.bairro}, ${unidade.cidade}.`,
+      Icon: MapPin,
+    },
+    {
+      num: "04",
+      title: "Espaço Aconchegante",
+      desc: "O lugar perfeito para reunir amigos e família.",
+      Icon: Coffee,
+    },
+  ];
 
   return (
     <section className="bg-brand-charcoal">
@@ -94,13 +99,13 @@ export default function Atmosphere() {
             <div className="flex items-center gap-2.5 mb-3 font-mono text-[11px] text-white/40 tracking-[0.08em]">
               <span>Ed. 06</span>
               <span className="flex-1 h-px bg-white/15" />
-              <span>Santa Rita — PB</span>
+              <span>{unidade.cidade} — PB</span>
             </div>
             <h2
               className="font-heading text-[64px] leading-[0.88] uppercase text-white tracking-[0.01em] m-0"
             >
-              O trono<br />
-              <span className="text-soberano-gradient block">espera.</span>
+              O reinado<br />
+              <span className="text-soberano-gradient block">começa aqui.</span>
             </h2>
           </div>
         </div>
@@ -116,11 +121,11 @@ export default function Atmosphere() {
 
           {/* Features */}
           <div className="flex flex-col">
-            {FEATURES.map(({ num, title, desc, Icon }, i) => (
+            {features.map(({ num, title, desc, Icon }, i) => (
               <div
                 key={num}
                 className={`grid gap-4 items-start py-[18px] border-t border-white/5 ${
-                  i === FEATURES.length - 1 ? "border-b border-white/5" : ""
+                  i === features.length - 1 ? "border-b border-white/5" : ""
                 }`}
                 style={{ gridTemplateColumns: "34px 1fr auto" }}
               >
@@ -155,16 +160,17 @@ export default function Atmosphere() {
             <span className="font-label text-[10px] font-bold tracking-[0.24em] uppercase text-brand-amber">
               Onde encontrar
             </span>
-            <h3 className="font-heading text-[20px] leading-[1.1] text-white uppercase tracking-[0.02em] m-0">
-              R. Emb. Milton Cabral, 456 —<br />
-              Tibiri II, Santa Rita — PB
+            <h3 className="font-heading text-[20px] leading-[1.2] text-white uppercase tracking-[0.02em] m-0">
+              {unidade.endereco}
             </h3>
             <p className="text-[12.5px] text-white/60 m-0">
-              CEP 58302-510 · (83) 98625-6727
+              CEP {unidade.cep} · {unidade.telefone}
             </p>
-            <p className="text-[12px] text-brand-amber font-semibold m-0">
-              Delivery em toda Santa Rita e Bayeux
-            </p>
+            {unidade.deliveryInfo && (
+              <p className="text-[12.5px] text-brand-amber font-semibold m-0">
+                {unidade.deliveryInfo}
+              </p>
+            )}
             {/* Live status row */}
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
@@ -190,7 +196,7 @@ export default function Atmosphere() {
           {/* CTAs */}
           <div className="mt-5 flex flex-col gap-2.5">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=R.+Emb.+Milton+Cabral,+456,+Tibiri,+Santa+Rita,+PB,+58302-510"
+              href={unidade.mapsLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2.5 py-4 rounded-full bg-soberano-gradient text-brand-gray text-[13px] font-black uppercase tracking-[0.14em] shadow-[0_10px_30px_-5px_rgba(234,88,12,0.4)]"
@@ -199,7 +205,7 @@ export default function Atmosphere() {
               Abrir no Waze / Maps
             </a>
             <a
-              href="https://wa.me/5583986256727"
+              href={unidade.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2.5 py-3.5 rounded-full bg-transparent border border-white/10 text-white/70 text-[12px] font-bold uppercase tracking-[0.14em]"
@@ -245,12 +251,12 @@ export default function Atmosphere() {
             <SectionHeading
               align="left"
               badge="Experiência Presencial"
-              title="O Trono Espera por Você"
+              title="O Reinado Começa Aqui"
               description="Mais que um hambúrguer, uma experiência completa. Nosso espaço foi pensado para o seu conforto, unindo boa música, atendimento de mestre e o melhor blend da região."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 md:gap-8 md:mb-12">
-              {FEATURES.map(({ title, desc, Icon }) => (
+              {features.map(({ title, desc, Icon }) => (
                 <div key={title} className="flex gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-amber shrink-0">
                     <Icon className="w-6 h-6" />
@@ -265,19 +271,21 @@ export default function Atmosphere() {
 
             <div className="text-center md:text-left">
               <p className="text-foreground/40 text-sm mb-1">
-                R. Emb. Milton Cabral, 456 - Tibiri II, Santa Rita - PB, 58302-510
+                {unidade.endereco} · CEP {unidade.cep} · {unidade.telefone}
               </p>
-              <p className="text-brand-amber text-xs font-semibold mb-4">
-                Entregamos em toda a região de Santa Rita e Bayeux
-              </p>
+              {unidade.deliveryInfo && (
+                <p className="text-brand-amber text-xs font-semibold mb-4">
+                  {unidade.deliveryInfo}
+                </p>
+              )}
               <a
-                href="https://www.google.com/maps/search/?api=1&query=R.+Emb.+Milton+Cabral,+456,+Tibiri,+Santa+Rita,+PB,+58302-510"
+                href={unidade.mapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-bold transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-bold transition-all text-xs"
               >
                 Abrir no Waze / Maps
-                <MapPin className="ml-2 w-4 h-4" />
+                <MapPin className="ml-2 w-4 h-4 text-brand-amber" />
               </a>
             </div>
           </div>

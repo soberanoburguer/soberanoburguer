@@ -3,11 +3,12 @@
 import SectionHeading from "@/components/ui/section-heading";
 import ProductCard from "@/components/ui/product-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UnidadeInfo } from "@/lib/unidades";
 
 const BURGERS = [
   {
     title: "Soberano Sertanejo",
-    description: "Pão brioche 130g, carne de sol suculenta, queijo coalho derretido, cream cheese, maionese e salada fresca.",
+    description: "Carne de sol suculenta, queijo coalho derretido, cream cheese e nossa maionese no pão brioche. O Nordeste no prato.",
     price: "29,99",
     image: "/images/menu/sertanejo.webp",
     isPopular: true,
@@ -31,14 +32,14 @@ const BURGERS = [
 const SIDES = [
   {
     title: "Batata Frita Soberana",
-    description: "Crocante por fora, macia por dentro. Frita na hora e temperada com o toque certo — o acompanhamento que todo reinado merece.",
+    description: "Crocante por fora, macia por dentro. Frita na hora e temperada na medida. O acompanhamento que todo reinado merece.",
     price: "14,99",
     image: "/images/menu/batatafrita.png",
     isPopular: true,
   },
   {
     title: "Milkshake do Trono",
-    description: "Cremoso, gelado e feito pra durar até o último gole. O complemento perfeito pra qualquer burger soberano.",
+    description: "Cremoso, gelado e feito pra acompanhar cada mordida até o fim. O complemento perfeito pra qualquer burger soberano.",
     price: "14,99",
     image: "/images/menu/milkshakes.webp",
     isPopular: false,
@@ -52,14 +53,18 @@ const SIDES = [
   },
 ];
 
-export default function MenuHighlights() {
+interface MenuHighlightsProps {
+  unidade: UnidadeInfo;
+}
+
+export default function MenuHighlights({ unidade }: MenuHighlightsProps) {
   return (
     <section id="menu" className="py-14 md:py-24 px-4 bg-brand-charcoal relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           badge="Escolha Sua Realeza"
           title="Os Mais Pedidos do Soberano"
-          description="Do mestre açougueiro direto para sua mesa. Ingredientes selecionados e blends exclusivos que você só encontra aqui."
+          description="Blends criados por um açougueiro que conhece a carne como ninguém. Só aqui, só assim."
         />
 
         <Tabs defaultValue="burgers" className="w-full">
@@ -88,8 +93,9 @@ export default function MenuHighlights() {
         <div className="mt-12 md:mt-20 text-center">
           <p className="text-foreground/40 text-sm mb-4 md:mb-6">Quer ver o cardápio completo com todas as opções?</p>
           <a
-            href="https://app.cardapioweb.com/soberano_burguer"
+            href={unidade.cardapioLink}
             target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 text-brand-amber font-black uppercase tracking-widest hover:translate-x-2 transition-transform"
           >
             Acessar Cardápio Completo

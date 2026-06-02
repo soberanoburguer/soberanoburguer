@@ -69,7 +69,7 @@ const DESKTOP_CHAPTERS = [
     chapter: "Cap. IV",
     yearLines: ["2023", "2024"],
     title: "O Reino",
-    desc: "O 'corre' individual vira engrenagem. Rede de pessoas, processos, padrão. A garagem ficou pequena. A ambição, não.",
+    desc: "O 'corre' individual vira time. A esposa entra, a estrutura cresce. A garagem ficou pequena. A ambição, não.",
     Icon: Users,
     active: false,
   },
