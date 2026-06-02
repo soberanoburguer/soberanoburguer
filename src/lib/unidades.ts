@@ -3,6 +3,7 @@ export interface UnidadeInfo {
   nome: string;
   cidade: string;
   bairro: string;
+  sigla: string; // Ex: "SR" ou "JP"
   slug: string;
   endereco: string;
   cep: string;
@@ -27,6 +28,7 @@ export const UNIDADES: Record<string, UnidadeInfo> = {
     nome: "Soberano Burguer - Santa Rita",
     cidade: "Santa Rita",
     bairro: "Tibiri II",
+    sigla: "SR",
     slug: "santa-rita",
     endereco: "R. Emb. Milton Cabral, 456 - Tibiri II, Santa Rita - PB",
     cep: "58302-510",
@@ -49,6 +51,7 @@ export const UNIDADES: Record<string, UnidadeInfo> = {
     nome: "Soberano Burguer - João Pessoa",
     cidade: "João Pessoa",
     bairro: "Costa e Silva",
+    sigla: "JP",
     slug: "joao-pessoa",
     endereco: "R. Profa. Adelaíde Figueiredo Gouvêia, 220-268 - Costa e Silva, João Pessoa - PB",
     cep: "58081-230",

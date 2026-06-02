@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { MapPin, ArrowRight, BookOpen, Store } from "lucide-react";
 import { UNIDADES, UnidadeInfo } from "@/lib/unidades";
 
 function getBranchStatus() {
@@ -79,7 +79,7 @@ export default function HomeSeletor() {
           <div className="bg-black/60 border border-brand-amber/20 backdrop-blur-xl rounded-xl p-2.5 md:p-4 flex items-center justify-between gap-4 shadow-2xl">
             <div className="flex items-center gap-2 md:gap-3">
               <span className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-brand-amber/10 flex items-center justify-center text-brand-amber shrink-0">
-                <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                <Store className="w-3.5 h-3.5 md:w-4 md:h-4" />
               </span>
               <p className="text-[11px] md:text-sm text-white/80">
                 Unidade recente: <strong className="text-white">{lastVisited.cidade}</strong>

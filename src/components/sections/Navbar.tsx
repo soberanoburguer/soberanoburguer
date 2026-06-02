@@ -148,7 +148,7 @@ export default function Navbar({ unidade }: NavbarProps) {
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/90 text-[10px] font-bold uppercase tracking-wider"
             >
               <MapPin className="w-3 h-3 text-brand-amber" />
-              <span>{unidade.cidade.split(" ")[0]}</span>
+              <span>{unidade.sigla}</span>
             </Link>
           </div>
 
