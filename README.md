@@ -1,12 +1,12 @@
 # Soberano Burguer — Site Oficial
 
-Site institucional da **Soberano Burguer**, hamburgueria artesanal de Santa Rita, PB.
+Site institucional da **Soberano Burguer**, hamburgueria artesanal com unidades em Santa Rita e João Pessoa, PB.
 
 ## Stack
 
-- **Next.js 15** (App Router, static export)
+- **Next.js 16** (App Router, páginas de unidade geradas estaticamente)
 - **Tailwind CSS v4**
-- **GSAP** — animações de entrada e scroll-driven video
+- **GSAP** e **Lenis** — animações de entrada e scroll-driven video
 - **Base UI** — componentes headless (Tabs)
 - **Lucide React** — ícones
 
@@ -14,7 +14,8 @@ Site institucional da **Soberano Burguer**, hamburgueria artesanal de Santa Rita
 
 ```
 src/
-├── app/                  # Layout, globals, página principal
+├── app/                  # Layout, globals, [unidade] (santa-rita, joao-pessoa), sitemap, robots
+├── lib/                  # unidades.ts (dados e SEO de cada unidade), utils.ts
 ├── components/
 │   ├── sections/         # Hero, Navbar, History, MenuHighlights, Reviews, Atmosphere, Footer
 │   └── ui/               # ProductCard, SectionHeading, Badge, Tabs
@@ -38,6 +39,10 @@ Acesse [http://localhost:3000](http://localhost:3000).
 ```bash
 npm run build
 ```
+
+## Publicação
+
+Push na branch `master` publica em produção na Vercel pelo GitHub Actions (`.github/workflows/deploy.yml`). Instruções para agentes de IA: `AGENTS.md`.
 
 ## Desenvolvido por
 
