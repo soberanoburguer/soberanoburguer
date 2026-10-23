@@ -90,7 +90,7 @@ export default function Reviews() {
               </div>
 
               <p className="text-foreground/80 italic mb-8 relative z-10">
-                "{review.content}"
+                &quot;{review.content}&quot;
               </p>
 
               <div className="flex items-center gap-4 border-t border-white/10 pt-6">

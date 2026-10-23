@@ -214,7 +214,7 @@ export default function History() {
       <div className="md:hidden py-14 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10 md:mb-20">
-            <h2 className="font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">// Como Tudo Começou</h2>
+            <h2 className="font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">{"// Como Tudo Começou"}</h2>
             <h3 className="text-4xl md:text-5xl font-black mb-4 md:mb-6">
               De Açougueiro a <span className="text-soberano-gradient">Soberano</span>
             </h3>
@@ -274,7 +274,7 @@ export default function History() {
         {/* Section header */}
         <header className="relative text-center mb-[72px] max-w-[720px] mx-auto">
           <span className="block font-label text-[12px] font-black tracking-[0.28em] text-brand-amber uppercase mb-5">
-            // Como Tudo Começou
+            {"// Como Tudo Começou"}
           </span>
           <h3 className="text-[56px] leading-[0.95] uppercase mb-6">
             Cinco capítulos,<br />uma única{" "}
