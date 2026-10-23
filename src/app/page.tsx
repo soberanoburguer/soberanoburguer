@@ -23,6 +23,8 @@ export default function HomeSeletor() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Só renderiza depois de montar: hora e localStorage diferem entre servidor e navegador (evita erro de hidratação).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setStatus(getBranchStatus());
     const saved = localStorage.getItem("soberano-unidade");
