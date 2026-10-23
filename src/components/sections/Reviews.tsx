@@ -46,7 +46,6 @@ export default function Reviews() {
     const ctx = gsap.context(() => {
       if (!scrollRef.current) return;
 
-      const cards = scrollRef.current.children;
       const totalWidth = scrollRef.current.scrollWidth;
 
       gsap.to(scrollRef.current, {

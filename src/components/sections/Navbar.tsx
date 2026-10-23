@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Menu, X, ShoppingCart, ChevronDown, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UNIDADES, UnidadeInfo } from "@/lib/unidades";
